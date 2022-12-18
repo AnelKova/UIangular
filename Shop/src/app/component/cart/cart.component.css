@@ -1,0 +1,35 @@
+.card{
+    height: 60vh;
+    margin: 25px;
+    padding: 25px;
+}
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+h4,h6{
+    font-weight: 400;
+}
+img{
+    text-decoration: none;
+    color:inherit;
+    border: none;
+    outline: none;
+    height: 162px;
+    width: 250px;
+    margin: 20px 0px;
+}
+img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 15px;
+    transition: 0.3s ease-in-out;
+    border-radius: 0%;
+}
+.card{
+    padding: 20px;
+    margin: 50px;
+}

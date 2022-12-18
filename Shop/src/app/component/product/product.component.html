@@ -1,0 +1,119 @@
+<header>
+    <div class="navbar bg-primary shadow-sm">
+        <div  class="navbar-brand align-item-center d-flex">
+            <i (click)="filter('')" style="font-size: 40px;margin-left: 50px" class="fas fa-shipping-fast">&nbsp;
+                
+            </i>
+            <strong (click)="filter('')" style="font-size: 30;">Kova Shop</strong>
+            <div class="form-group">
+                <input type="text" [(ngModel)]="searchTerm" (keyup)="search($event)"   class="form-control" placeholder="search products">
+            </div>
+            <span class="fas fa-search search-icon"></span>
+        </div>
+        <button routerLink="/cart" class="btn btn-primary">
+            <i style="font-size: 30px;" class="fas fa-cart-plus"></i>
+            <div style="font-size: 10px;" class="badge bg-danger">{{totalcartitem}}</div>
+        </button>
+        <h4>Hello,{{fullName}}</h4>
+        <button (click)="logOut()" class="btn btn-danger" style="margin-right:20px;position: relative;">Log out</button>
+    </div>
+</header> 
+<ng-container *ngIf="role ==='Admin'">
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
+</ng-container>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="card-top">
+        
+        <div class="container">
+            <div class="item">
+                <a (click)="filter('')">
+                    <img src="https://png.pngitem.com/pimgs/s/325-3256461_our-product-range-icon-vector-shopping-cart-hd.png">
+                    <h6>All Products</h6>
+                </a>
+            </div>
+            <div class="item">
+                <a (click)="filter('electronics')">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/000/460/483/small/1403.i003.005.S.m004.c11.devices_emblem.jpg" alt="">
+                <h6>Electronics</h6>
+                </a>
+            </div>
+            <div class="item">
+                <a (click)="filter('jewelery')"> 
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnWAi96GlRqtfX6XoV2mJ8l-IuUtt5-PuT0A&usqp=CAU" alt="">
+                    <h6>Jewelry</h6>
+                </a>
+            </div>
+             <div class="item">
+                <a (click)="filter('fashion')"> 
+                    <img src="https://5.imimg.com/data5/YA/NT/MY-31256817/men-27s-fashion-shirt-500x500.jpg" alt="">
+                    <h6>Clothes</h6>
+                </a>
+             </div>
+        </div>
+    
+        <div class="card-top container-fluid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="card-top container-">
+    <div class="container d-flex">
+        <div class="item">
+            <a (click)="filter('')">
+                <img src="https://png.pngitem.com/pimgs/s/325-3256461_our-product-range-icon-vector-shopping-cart-hd.png">
+                <h6>All Products</h6>
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('electronics')">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/000/460/483/small/1403.i003.005.S.m004.c11.devices_emblem.jpg" alt="">
+            <h6>Electronics</h6>
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('jewelery')"> 
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnWAi96GlRqtfX6XoV2mJ8l-IuUtt5-PuT0A&usqp=CAU" alt="">
+                <h6>Jewelry</h6>
+            </a>
+        </div>
+         <div class="item">
+            <a (click)="filter('fashion')"> 
+                <img src="https://5.imimg.com/data5/YA/NT/MY-31256817/men-27s-fashion-shirt-500x500.jpg" alt="">
+                <h6>Clothes</h6>
+            </a>
+         </div>
+    </div>
+    <div class="card-top container-fluid"></div>
+</div>
+
+<div class="card-top container-fluid"></div>
+<div class="container">
+    <div class="row">
+     <ng-container *ngFor="let product of filterCategory | filter:searchKey:'title' "> 
+        <div class="card col-md-3">
+            <img src="{{product.image}}" alt="">
+            <h5 style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{product.title}}</h5>
+            <p style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{product.description}}</p>
+            <p><strong>PRICE: </strong>{{product.price}} KM</p>
+            
+            <button class="btn btn-primary" (click)="addToCart(product)">Add to cart</button>
+        </div>
+    </ng-container>
+    <ng-container *ngFor="let item of productList">
+        <div class="card col-md-3">
+            <img src="{{item.image}}" alt="">
+            <h5 style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{item.title}}</h5>
+            <p style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{item.description}}</p>
+            <p><strong>PRICE: </strong>{{item.price}} KM</p>
+            <button class="btn btn-primary">Upload image</button>
+            
+            <button class="btn btn-primary" (click)="addToCart(item)">Add to cart</button>
+        </div>
+    </ng-container>
+    </div>
+</div>
