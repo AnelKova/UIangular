@@ -14,37 +14,39 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CartComponent } from './component/cart/cart.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FilterPipe } from './shared/filter.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    ProductComponent,
-    CartComponent,
-    HeaderComponent,
-    FilterPipe,
-    
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgToastModule
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        SignupComponent,
+        ProductComponent,
+        CartComponent,
+        HeaderComponent,
+        FilterPipe,
+    ],
+    providers: [{
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgToastModule,
+        NgbModule,
+       
 
-
-  ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass:TokenInterceptor,
-    multi:true
-  }],
-
-  bootstrap: [AppComponent]
+        
+        
+    ]
 })
 export class AppModule { }

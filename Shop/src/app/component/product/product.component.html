@@ -14,10 +14,11 @@
             <i style="font-size: 30px;" class="fas fa-cart-plus"></i>
             <div style="font-size: 10px;" class="badge bg-danger">{{totalcartitem}}</div>
         </button>
-        <h4>Hello,{{fullName}}</h4>
+        <h5>Hello,{{fullName}}</h5>
         <button (click)="logOut()" class="btn btn-danger" style="margin-right:20px;position: relative;">Log out</button>
     </div>
-</header> 
+</header>
+<div class="container-hole">
 <ng-container *ngIf="role ==='Admin'">
 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
 </ng-container>
@@ -56,7 +57,7 @@
              </div>
         </div>
     
-        <div class="card-top container-fluid"></div>
+        
     </div>
   </div>
 </div>
@@ -92,7 +93,7 @@
 </div>
 
 <div class="card-top container-fluid"></div>
-<div class="container">
+<div class="container" (onUpladFinished)="uploadFinished($event)">
     <div class="row">
      <ng-container *ngFor="let product of filterCategory | filter:searchKey:'title' "> 
         <div class="card col-md-3">
@@ -104,16 +105,56 @@
             <button class="btn btn-primary" (click)="addToCart(product)">Add to cart</button>
         </div>
     </ng-container>
-    <ng-container *ngFor="let item of productList">
+    
+    
+    <ng-container *ngFor="let item of products">
         <div class="card col-md-3">
-            <img src="{{item.image}}" alt="">
-            <h5 style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{item.title}}</h5>
+            <img [src]="createImgPath(item.imgPath)" alt="">
+            <h5 style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{item.category}}</h5>
             <p style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 100ch;">{{item.description}}</p>
             <p><strong>PRICE: </strong>{{item.price}} KM</p>
-            <button class="btn btn-primary">Upload image</button>
             
+            <td> Artikal: {{item.name}}</td>
+           
+
+            <div class="col-md-3">
+                <input type="file"#file placeholder="Choose file" (change)="uploadFile(file.files)" style="display: none;" multiple>
+                <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+              </div>
+              <div class="col-md-4">
+                  <span class="upload" *ngIf="progress > 0">
+                      {{progress}}%
+                  </span>
+                  <span class="upload" *ngIf="message">
+                      {{message}}
+                  </span>
+              </div>
+
+        
             <button class="btn btn-primary" (click)="addToCart(item)">Add to cart</button>
         </div>
     </ng-container>
     </div>
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Upload Image</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="row">
+                    <input type="file" (change)=[onchange($event)] style="display:none" id="fileupload" class="form-control">
+                    <label style="width: 100%" for="fileupload">
+                    <img class="img-responsive img-thumbnail popupclass" [src]="productImage"></label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="ProceedUpload()">Procced upload</button>
+        </div>
+    </ng-template>
+    
+    
 </div>
+</div> 

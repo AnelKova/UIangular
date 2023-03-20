@@ -20,5 +20,10 @@ export class ProductService {
   getProducts(){
     return this.http.get<any>((this.baseUrl));
   }
- 
+  UploadImage(inpudata:any){
+    return this.http.post("https://localhost:7242/api/Products/Uploadimage",inpudata,{
+      reportProgress:true,
+      observe:'events'
+    });
+  }
 }

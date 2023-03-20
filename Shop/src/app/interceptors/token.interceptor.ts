@@ -29,13 +29,13 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((err:any)=>{
         if(err instanceof HttpErrorResponse){
           if(err.status===401){
-            //this.toast.warning({detail:"Warning",summary:"Token is expiry,Please login again"});
-            //this.router.navigate(['login'])
-            // handle 
+          //  this.toast.warning({detail:"Warning",summary:"Token is expired,Please login again"});
+          //   this.router.navigate(['login'])
+          //  handle 
            return this.handleUnAuthorizedError(request,next)
           }
         }
-        return throwError(()=>new Error("Some othoer error occured"))
+        return throwError(()=>new Error("Some other error occured"))
       })
     );
   }
@@ -50,13 +50,13 @@ export class TokenInterceptor implements HttpInterceptor {
       this.auth.storeRefreshToken(data.refreshToken);
       this.auth.storeToken(data.accessToken);
       req= req.clone({
-        setHeaders:{Authorization:`Bearer ${data.accessToken}`}
+        setHeaders:{Authorization:`Bearer ${data.accessToken}`}  
     })
     return next.handle(req);
   }),
   catchError((err)=>{
     return throwError(()=>{
-    this.toast.warning({detail:"Warning",summary:"Token is expiry,Please login again"});
+    this.toast.warning({detail:"Warning",summary:"Token is expired,Please login again"});
     this.router.navigate(['login'])
   })
 })
